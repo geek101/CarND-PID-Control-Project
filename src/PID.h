@@ -57,9 +57,6 @@ public:
   double TotalError();
 
   void twiddle();
-  void twiddle_loop();
-
-  double run();
 };
 
 #endif /* PID_H */
