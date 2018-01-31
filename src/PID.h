@@ -1,21 +1,35 @@
 #ifndef PID_H
 #define PID_H
 
+#include <utility>
+#include <vector>
+#include <queue>
+
 class PID {
 public:
   /*
   * Errors
   */
+  static double tol;
   double p_error;
   double i_error;
   double d_error;
 
   /*
   * Coefficients
-  */ 
-  double Kp;
-  double Ki;
-  double Kd;
+  */
+
+  bool first_time;
+  double err;
+  int n_steps;
+  int steps;
+  bool best_err;
+
+  std::vector<double> p;
+  std::vector<double> dp;
+  int next_k;
+  std::vector<bool> doubled_pred;
+  std::deque<double> q;
 
   /*
   * Constructor
@@ -41,6 +55,11 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  void twiddle();
+  void twiddle_loop();
+
+  double run();
 };
 
 #endif /* PID_H */
